@@ -254,7 +254,7 @@ const testimonials = [
   },
 ];
 
-const DESKTOP_REVIEW_QUERY = "(min-width: 768px)";
+const DESKTOP_REVIEW_QUERY = "(min-width: 1024px)";
 
 function setupHeroAnimations(hero: HTMLElement | null) {
   gsap.from("[data-hero-item]", {
@@ -346,8 +346,10 @@ function setupReviewCarousel(reviewSection: HTMLElement | null) {
   gsap.set(reviewCards, { transformOrigin: "50% 50%" });
   reviewCards.forEach((card, index) => {
     gsap.set(card, {
-      opacity: index === 0 ? 1 : 0.5,
-      scale: index === 0 ? 1 : 0.86,
+      opacity: index === 0 ? 1 : 0.22,
+      scale: index === 0 ? 1 : 0.9,
+      y: index === 0 ? 0 : 18,
+      zIndex: reviewCards.length - index,
     });
   });
 
@@ -355,7 +357,7 @@ function setupReviewCarousel(reviewSection: HTMLElement | null) {
     scrollTrigger: {
       trigger: reviewSection,
       start: "top top",
-      end: `+=${reviewCards.length * 86}%`,
+      end: `+=${reviewCards.length * 92}%`,
       scrub: true,
       pin: true,
       anticipatePin: 1,
@@ -369,8 +371,8 @@ function setupReviewCarousel(reviewSection: HTMLElement | null) {
       reviewTrack,
       {
         x: () => -getOffset(nextIndex),
-        duration: 0.85,
-        ease: "none",
+        duration: 0.95,
+        ease: "power1.inOut",
       },
       start,
     );
@@ -378,10 +380,11 @@ function setupReviewCarousel(reviewSection: HTMLElement | null) {
       reviewTimeline.to(
         card,
         {
-          opacity: cardIndex === nextIndex ? 1 : 0.5,
-          scale: cardIndex === nextIndex ? 1 : 0.86,
-          duration: 0.85,
-          ease: "none",
+          opacity: cardIndex === nextIndex ? 1 : 0.22,
+          scale: cardIndex === nextIndex ? 1 : 0.9,
+          y: cardIndex === nextIndex ? 0 : 18,
+          duration: 0.95,
+          ease: "power1.inOut",
         },
         start,
       );

@@ -318,7 +318,7 @@
   }
 
   .review-journey {
-    min-height: 84vh;
+    min-height: 88vh;
     display: grid;
     align-items: center;
     padding-block: 3.5rem 4.5rem;
@@ -335,49 +335,54 @@
   }
 
   .review-shell {
-    width: min(100% - 2.5rem, 78rem);
+    width: min(100% - 2.5rem, 82rem);
     margin-inline: auto;
     display: grid;
-    gap: clamp(2rem, 5vw, 5rem);
+    gap: clamp(2rem, 4.5vw, 4.5rem);
     align-items: center;
   }
 
+  .review-copy {
+    max-width: 34rem;
+  }
+
   .review-copy h2 {
-    max-width: 38rem;
+    max-width: 32rem;
     margin-top: 1rem;
     font-family: var(--font-display);
-    font-size: clamp(3rem, 5.4vw, 5.35rem);
+    font-size: clamp(2.8rem, 4.35vw, 4.4rem);
     font-weight: 800;
-    line-height: 1;
+    line-height: 1.04;
+    text-wrap: balance;
   }
 
   .review-copy p:not(.eyebrow) {
-    max-width: 36rem;
+    max-width: 31rem;
     margin-top: 1.5rem;
     color: var(--muted-foreground);
-    font-size: 1.05rem;
-    line-height: 1.75;
+    font-size: 1rem;
+    line-height: 1.7;
   }
 
   .review-stage {
-    min-height: clamp(27rem, 55vh, 35rem);
+    min-height: clamp(28rem, 56vh, 35rem);
     overflow: hidden;
   }
 
   .review-track {
     display: flex;
-    min-height: clamp(27rem, 55vh, 35rem);
+    min-height: clamp(28rem, 56vh, 35rem);
     align-items: center;
-    gap: clamp(1rem, 2.2vw, 2rem);
-    padding-inline: max(0rem, calc((100% - min(100%, 30rem)) / 2));
+    gap: clamp(1.5rem, 2.8vw, 2.5rem);
+    padding-inline: max(0rem, calc((100% - min(100%, 32rem)) / 2));
     will-change: transform;
   }
 
   .review-card {
     display: flex;
-    min-height: clamp(23rem, 48vh, 30rem);
-    width: min(100%, 30rem);
-    flex: 0 0 min(100%, 30rem);
+    min-height: clamp(24rem, 49vh, 30rem);
+    width: min(100%, 32rem);
+    flex: 0 0 min(100%, 32rem);
     flex-direction: column;
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -393,9 +398,10 @@
     margin-block: clamp(1.5rem, 3.5vw, 2.8rem);
     color: color-mix(in srgb, var(--foreground) 88%, transparent);
     font-family: var(--font-display);
-    font-size: clamp(1.35rem, 2vw, 2rem);
+    font-size: clamp(1.3rem, 1.7vw, 1.78rem);
     font-weight: 800;
-    line-height: 1.14;
+    line-height: 1.18;
+    text-wrap: balance;
   }
 
   .eyebrow {
@@ -616,8 +622,8 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .review-shell {
-    grid-template-columns: minmax(17rem, 0.65fr) minmax(32rem, 1.35fr);
+    grid-template-columns: minmax(22rem, 0.85fr) minmax(34rem, 1.15fr);
   }
 }
