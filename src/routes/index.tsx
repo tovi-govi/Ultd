@@ -694,28 +694,28 @@ function Landing() {
 
       <section id="method" className="surface-light section-pad bg-muted">
         <div className="mx-auto max-w-7xl px-5">
-          <SectionHeader
-            eyebrow="Method"
-            title="A placement-first path from counselling to offer."
-            body="Udvitha behaves less like a course vendor and more like a career operating system: role clarity, skills, proof, and interview momentum all move together."
-          />
+          <div className="method-header" data-reveal>
+            <div>
+              <p className="eyebrow">Method</p>
+              <h2>A placement-first path from counselling to offer.</h2>
+            </div>
+            <p>
+              Udvitha behaves less like a course vendor and more like a career operating system:
+              role clarity, skills, proof, and interview momentum all move together.
+            </p>
+          </div>
 
-          <div className="mt-8 grid gap-5 lg:grid-cols-4" data-reveal>
+          <div className="method-grid" data-reveal>
             {method.map((item) => (
-              <article
-                key={item.step}
-                className="rounded-md border border-border bg-background p-6"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-display text-5xl font-extrabold text-foreground/12">
-                    {item.step}
-                  </span>
-                  <div className="grid h-11 w-11 place-items-center rounded-md bg-primary text-primary-foreground">
+              <article key={item.step} className="method-card">
+                <div className="method-card-top">
+                  <span>{item.step}</span>
+                  <div>
                     <item.icon className="h-5 w-5" />
                   </div>
                 </div>
-                <h3 className="mt-8 font-display text-2xl font-extrabold">{item.title}</h3>
-                <p className="mt-4 text-sm leading-6 text-muted-foreground">{item.text}</p>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
               </article>
             ))}
           </div>
@@ -724,22 +724,30 @@ function Landing() {
 
       <section id="placements" className="surface-light section-pad bg-background">
         <div className="mx-auto max-w-7xl px-5">
-          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-            <SectionHeader
-              eyebrow="Placements"
-              title="Outcomes that read like case studies."
-              body="The goal is not just finishing a syllabus. It is building enough practical proof to speak clearly in real interviews."
-            />
-            <div className="grid gap-3 sm:grid-cols-3" data-reveal>
+          <div className="placement-header" data-reveal>
+            <div className="placement-copy">
+              <p className="eyebrow">Placements</p>
+              <h2>Outcomes that read like case studies.</h2>
+              <p>
+                The goal is not just finishing a syllabus. It is building enough practical proof
+                to speak clearly in real interviews.
+              </p>
+            </div>
+            <div className="placement-support">
               {[
                 { icon: Users, label: "1:1 mentoring" },
                 { icon: Calendar, label: "Mock rounds" },
                 { icon: Building2, label: "Partner openings" },
               ].map((item) => (
-                <div key={item.label} className="rounded-md border border-border bg-card p-4">
+                <a
+                  key={item.label}
+                  href="#contact"
+                  className="placement-support-item"
+                  aria-label={`${item.label} placement support`}
+                >
                   <item.icon className="h-5 w-5 text-primary" />
-                  <p className="mt-4 text-sm font-extrabold">{item.label}</p>
-                </div>
+                  <p>{item.label}</p>
+                </a>
               ))}
             </div>
           </div>
