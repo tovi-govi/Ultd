@@ -439,7 +439,7 @@
   }
 
   .form-field option {
-    background: #0c0c0b;
+    background: var(--card);
     color: var(--foreground);
   }
 
