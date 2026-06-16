@@ -1008,30 +1008,3 @@ function Landing() {
     </main>
   );
 }
-
-function SectionHeader({
-  eyebrow,
-  title,
-  body,
-  action,
-}: {
-  eyebrow: string;
-  title: string;
-  body: string;
-  action?: string;
-}) {
-  return (
-    <div className="grid gap-6 lg:grid-cols-[0.9fr_1fr] lg:items-end" data-reveal>
-      <div>
-        <p className="eyebrow">{eyebrow}</p>
-        <h2 className="mt-4 max-w-3xl font-display text-4xl font-extrabold leading-tight md:text-6xl">
-          {title}
-        </h2>
-      </div>
-      <div>
-        <p className="max-w-2xl text-lg leading-8 text-muted-foreground">{body}</p>
-        {action && <p className="mt-4 text-sm font-extrabold text-primary">{action}</p>}
-      </div>
-    </div>
-  );
-}

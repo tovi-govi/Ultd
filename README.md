@@ -1,6 +1,8 @@
 # Udvitha Technologies Landing Page
 
-Premium landing page for Udvitha Technologies, an IT training and placements institute in Hyderabad. The site is built with TanStack Start, React, Tailwind CSS v4, GSAP, Framer Motion, and Lucide icons.
+Landing page for Udvitha Technologies, an IT training and placement-support institute in Hyderabad.
+
+The app is built with TanStack Start, React, TypeScript, Tailwind CSS v4, GSAP, Framer Motion, shadcn-style UI primitives, and Lucide icons. Use npm for dependency installs and scripts.
 
 ## Quick Start
 
@@ -9,162 +11,85 @@ npm install
 npm run dev
 ```
 
-The dev server usually starts on `http://127.0.0.1:8080/`. If that port is busy, Vite will pick the next available port and print it in the terminal.
+The dev server usually starts on `http://127.0.0.1:8080/`. If that port is busy, Vite will print the next available port.
 
-## Scripts
+## Useful Scripts
 
 ```bash
-npm run dev        # Start local development server
-npm run build      # Production build
-npm run preview    # Preview the production build
-npm run lint       # Run ESLint
-npm run format     # Format project files with Prettier
+npm run dev      # Start local development
+npm run build    # Production build and type/bundle validation
+npm run preview  # Preview the production build
+npm run lint     # Run ESLint
+npm run format   # Format files with Prettier
 ```
 
-## Project Structure
+## Where Things Live
 
 ```text
 src/
-  assets/
-    hero.jpg          # Hero background image
-    logo.svg          # Current brand logo used in the site
-    logo.jpg          # Source/reference brand image
-    udvitha-logo.svg  # Alternate logo asset
-  routes/
-    __root.tsx        # TanStack root shell, providers, error and 404 UI
-    index.tsx         # Main landing page content, data, sections, and animations
+  assets/                         Images and logo files
+  components/ui/                  shadcn primitives plus custom UI components
+    radial-orbital-timeline.tsx   Interactive program orbit
+    scroll-reel-testimonials.tsx  Animated testimonial reel
+    footer-taped-design.tsx       Taped-card footer
   lib/
-    animations.ts     # Shared GSAP helpers and reusable animation variants
-    error-*.ts        # SSR/client error capture helpers
-  styles.css          # Tailwind theme tokens, global styles, and custom components
-  router.tsx          # Router setup
-  server.ts           # SSR wrapper
-  start.ts            # TanStack Start middleware setup
+    animations.ts                 GSAP setup and shared animation helper
+    utils.ts                      cn() className helper
+  routes/
+    __root.tsx                    App shell, providers, metadata, error UI
+    index.tsx                     Main landing page content and section layout
+  styles.css                      Tailwind v4 theme, global CSS, custom sections
 ```
 
-## Main Page Anatomy
+## Main Editing Points
 
-The landing page lives in `src/routes/index.tsx`. Most content is data-driven near the top of the file:
+Most site content is data-driven inside `src/routes/index.tsx`.
 
-- `navItems`: Header links.
-- `companies`: Partner/company marquee.
-- `kineticSkills`: Moving skill ribbon items.
-- `stats`: Hero metric cards.
-- `courses`: Program cards.
-- `method`: Four-step career method.
-- `outcomes`: Placement case studies.
-- `audiences`: Freshers, Professionals, and Colleges tab content.
-- `testimonials`: Review carousel cards.
+- `navItems`: header order and anchor links
+- `companies`: partner/company marquee
+- `kineticSkills`: moving skill ribbon
+- `stats`: hero metric cards
+- `courses`: select options and course metadata
+- `programOrbit`: orbit nodes used in the Programs section
+- `method`: four-step method cards
+- `learnerRoutes`: Freshers, Professionals, Colleges route cards inside Method
+- `outcomes`: placement case-study cards
+- `testimonials`: review reel content and portrait image URLs
 
-The rendered sections are:
+## Current Page Flow
 
-1. Fixed navigation
-2. Dark hero section
-3. Hiring partner marquee
-4. Hero-to-programs shutter reveal
-5. Program grid and skill ribbon
-6. Method section
+1. Fixed header navigation
+2. Hero section
+3. Partner/company marquee
+4. Program shutter reveal
+5. Programs orbit
+6. Method section with learner-route cards
 7. Placement outcomes
-8. Audience selector
-9. Scroll-driven review carousel
-10. CTA strip
-11. Independent contact form section
-12. Footer handoff and footer
-13. Floating WhatsApp button
+8. Animated review reel
+9. CTA strip
+10. Contact form
+11. Taped-card footer
+12. Floating WhatsApp button
 
-## Animation Notes
+## Important Notes
 
-Animations are initialized in `Landing()` and split into named helpers for readability:
+- The contact form currently does not submit to a backend. It prevents the default submit, shows a temporary success state, and resets the form.
+- The brochure link is still `href="#"`; replace it with a real file or route when available.
+- `routeTree.gen.ts` is generated by TanStack Router. Do not edit it manually.
+- Keep custom visual components in `src/components/ui` so the project stays consistent with the shadcn alias in `components.json`.
+- Prefer editing existing data arrays before changing JSX. Most content changes should not require layout code changes.
 
-- `setupHeroAnimations`: Hero entrance animation and image parallax.
-- `setupSectionReveals`: Standard reveal animation for elements marked with `data-reveal`.
-- `setupProgramShutter`: Black-to-light transition between hero and programs.
-- `setupReviewCarousel`: Desktop-only pinned horizontal review carousel.
+## Verification
 
-Respecting reduced motion:
-
-- If `useReducedMotion()` returns true, the GSAP setup is skipped.
-- CSS also includes a `prefers-reduced-motion` block to stop long-running animations.
-
-Review carousel behavior:
-
-- Desktop only: `DESKTOP_REVIEW_QUERY = "(min-width: 768px)"`.
-- The section pins while scrolling.
-- The card track moves horizontally.
-- The active card scales to `1`, inactive cards scale to `0.86`.
-- Mobile falls back to a normal stacked layout.
-
-## Styling System
-
-The design tokens are in `src/styles.css`.
-
-Important conventions:
-
-- Global dark theme variables live in `:root`.
-- Light page sections use `.surface-light`, which overrides the same variables locally.
-- Reusable layout classes:
-  - `.section-pad`
-  - `.shutter-reveal`
-  - `.review-journey`
-  - `.contact-row`
-  - `.form-field`
-  - `.secondary-action`
-- Cards use `border-radius: var(--radius)`, currently `0.5rem`.
-- Dominant palette: black, warm ivory, and gold, with a small cyan accent available.
-
-## Content Editing
-
-To update programs:
-
-1. Open `src/routes/index.tsx`.
-2. Edit the `courses` array.
-3. Each item supports:
-   - `icon`
-   - `name`
-   - `desc`
-   - `skills`
-   - optional `tag`
-
-To update reviews:
-
-1. Edit the `testimonials` array.
-2. Keep quotes reasonably short so carousel cards stay balanced.
-
-To update contact details:
-
-Search for:
-
-- `9100052143`
-- `88857 21731`
-- `info@udvitechnologies.com`
-- `udvithatechnologies`
-
-## Development Notes
-
-- `vite.config.ts` sets `cacheDir: ".vite-cache"` to avoid Windows file-lock issues with `node_modules/.vite`.
-- `.vite-cache` is ignored in `.gitignore`.
-- The project uses the Lovable TanStack config wrapper. Do not manually add duplicate Vite plugins already provided by `@lovable.dev/vite-tanstack-config`.
-- The form currently resets and shows a local success state only. It does not submit to a backend.
-- Brochure link is currently `href="#"`; replace it with a real file or route when available.
-
-## Verification Checklist
-
-Run this after making changes:
+Run this after edits:
 
 ```bash
+npm run lint
 npm run build
 ```
 
-Recommended visual checks:
+## Learning Guide
 
-- Hero text does not overlap the fixed nav.
-- Partner marquee does not overlap "Students placed with".
-- Shutter reveal flows cleanly into Programs.
-- Review carousel cards remain readable on desktop.
-- Reviews stack normally on mobile.
-- Contact starts independently after the CTA/separator.
-- WhatsApp button does not cover important form controls.
+For a more detailed explanation of how the route, custom components, styling, and animations fit together, read:
 
-## Known Warnings
-
-During build, Vite may warn that `vite-tsconfig-paths` is detected and that Vite now supports tsconfig paths natively. This warning comes from the current dependency/config stack and does not block builds.
+[docs/site-guide.md](docs/site-guide.md)
