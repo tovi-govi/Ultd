@@ -24,7 +24,6 @@ import {
   Phone,
   ShieldCheck,
   Sparkles,
-  Star,
   TrendingUp,
   Users,
   X,
@@ -33,6 +32,9 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, useReducedMotion } from "framer-motion";
 import { arrivalHighlight, initGsap } from "@/lib/animations";
+import RadialOrbitalTimeline, { type TimelineItem } from "@/components/ui/radial-orbital-timeline";
+import { ScrollReelTestimonials } from "@/components/ui/scroll-reel-testimonials";
+import { FooterTapedDesign } from "@/components/ui/footer-taped-design";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -74,8 +76,8 @@ export const Route = createFileRoute("/")({
 
 const navItems = [
   { label: "Programs", href: "#programs" },
-  { label: "Placements", href: "#placements" },
   { label: "Method", href: "#method" },
+  { label: "Placements", href: "#placements" },
   { label: "Stories", href: "#stories" },
   { label: "Contact", href: "#contact" },
 ];
@@ -164,6 +166,113 @@ const courses = [
   },
 ];
 
+const programOrbit: TimelineItem[] = [
+  {
+    id: 1,
+    title: "IAM",
+    date: "Okta / SailPoint",
+    content:
+      "Identity lifecycle, access governance, SSO, MFA, provisioning, and enterprise IAM labs for support and implementation roles.",
+    category: "Okta, SailPoint, SSO, IGA",
+    icon: ShieldCheck,
+    relatedIds: [2, 3, 8],
+    status: "completed",
+    statusLabel: "Most demanded",
+    energy: 96,
+  },
+  {
+    id: 2,
+    title: "Cyber Security",
+    date: "SOC / VAPT",
+    content:
+      "SOC workflows, threat analysis, ethical hacking foundations, blue-team practice, and incident response thinking.",
+    category: "SOC, SIEM, VAPT, IR",
+    icon: ShieldCheck,
+    relatedIds: [1, 3, 7],
+    status: "in-progress",
+    statusLabel: "Security track",
+    energy: 90,
+  },
+  {
+    id: 3,
+    title: "Cloud DevOps",
+    date: "AWS / K8s",
+    content:
+      "AWS, Azure, Docker, Kubernetes, Terraform, CI/CD, monitoring, and deployment pipelines through practical labs.",
+    category: "AWS, K8s, Docker, CI/CD",
+    icon: Cloud,
+    relatedIds: [1, 2, 4],
+    status: "completed",
+    statusLabel: "Fast track",
+    energy: 92,
+  },
+  {
+    id: 4,
+    title: "Full Stack",
+    date: "React / Node",
+    content:
+      "React, Node.js, APIs, databases, Git, testing, and cloud deployment through real product-style builds.",
+    category: "React, Node, SQL, APIs",
+    icon: Code2,
+    relatedIds: [3, 5, 6],
+    status: "in-progress",
+    statusLabel: "Build track",
+    energy: 85,
+  },
+  {
+    id: 5,
+    title: "Data Engineering",
+    date: "Spark / ETL",
+    content:
+      "Spark, Snowflake, Airflow, ETL design, SQL depth, and modern data platform fundamentals for analytics teams.",
+    category: "Spark, ETL, SQL, Airflow",
+    icon: Database,
+    relatedIds: [4, 6],
+    status: "pending",
+    statusLabel: "Data track",
+    energy: 78,
+  },
+  {
+    id: 6,
+    title: "AI & Data Science",
+    date: "Python / ML",
+    content:
+      "Python, machine learning, model evaluation, deep learning basics, and generative AI project workflows.",
+    category: "Python, ML, Gen AI, MLOps",
+    icon: Sparkles,
+    relatedIds: [4, 5],
+    status: "in-progress",
+    statusLabel: "AI track",
+    energy: 88,
+  },
+  {
+    id: 7,
+    title: "Testing",
+    date: "QA / Selenium",
+    content:
+      "Manual testing, Selenium automation, API testing, performance basics, Jira workflows, and QA documentation.",
+    category: "Selenium, API, Jira, QA",
+    icon: BadgeCheck,
+    relatedIds: [2, 4],
+    status: "pending",
+    statusLabel: "QA track",
+    energy: 76,
+  },
+  {
+    id: 8,
+    title: "Enterprise",
+    date: "SAP / CRM",
+    content:
+      "ServiceNow, Salesforce, and SAP career tracks with certification direction, process context, and interview prep.",
+    category: "ServiceNow, SAP, CRM, ITSM",
+    icon: Briefcase,
+    relatedIds: [1, 3],
+    status: "pending",
+    statusLabel: "Enterprise",
+    energy: 82,
+  },
+];
+
 const method = [
   {
     step: "01",
@@ -215,23 +324,26 @@ const outcomes = [
   },
 ];
 
-const audiences = {
-  Freshers: {
+const learnerRoutes = [
+  {
+    label: "Freshers",
     title: "First job launch plan",
     body: "Structured fundamentals, daily lab routines, resume projects, communication practice, and placement drives for students starting from zero.",
     bullets: ["Foundation-friendly batches", "Portfolio projects", "HR and aptitude prep"],
   },
-  Professionals: {
+  {
+    label: "Professionals",
     title: "Switch or upgrade your role",
     body: "Focused tracks for working professionals moving into IAM, DevOps, testing automation, cloud, data, or security roles without wasting months.",
     bullets: ["Weekend options", "Scenario-led labs", "Interview repositioning"],
   },
-  Colleges: {
+  {
+    label: "Colleges",
     title: "Campus placement accelerator",
     body: "Partner programs for colleges that want industry-grade bootcamps, trainer-led labs, and employability outcomes for final-year students.",
     bullets: ["Custom curriculum", "Batch analytics", "Corporate-style reviews"],
   },
-};
+];
 
 const testimonials = [
   {
@@ -239,22 +351,29 @@ const testimonials = [
     role: "IAM Engineer at Capgemini",
     quote:
       "The SailPoint labs made interviews feel familiar. I could explain access reviews, provisioning, and real tickets with confidence.",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=420&auto=format&fit=crop&q=75",
+    alt: "Portrait of a confident student",
   },
   {
     name: "Arjun K.",
     role: "DevOps Engineer at Cognizant",
     quote:
       "The trainers were working professionals, so every session connected tools to what actually happens in a project team.",
+    image:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=420&auto=format&fit=crop&q=75",
+    alt: "Portrait of a technology learner",
   },
   {
     name: "Sneha M.",
     role: "Cyber Analyst at PwC",
     quote:
       "Mock interviews changed everything. I stopped memorizing answers and started explaining how I would investigate issues.",
+    image:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=420&auto=format&fit=crop&q=75",
+    alt: "Portrait of a cyber security student",
   },
 ];
-
-const DESKTOP_REVIEW_QUERY = "(min-width: 1024px)";
 
 function setupHeroAnimations(hero: HTMLElement | null) {
   gsap.from("[data-hero-item]", {
@@ -332,75 +451,11 @@ function setupProgramShutter(shutter: HTMLElement | null) {
   });
 }
 
-function setupReviewCarousel(reviewSection: HTMLElement | null) {
-  const reviewTrack = reviewSection?.querySelector("[data-review-track]") as HTMLElement | null;
-  const reviewCards = reviewSection
-    ? gsap.utils.toArray<HTMLElement>(reviewSection.querySelectorAll("[data-review-card]"))
-    : [];
-
-  if (!reviewSection || !reviewTrack || reviewCards.length === 0) return;
-  if (!window.matchMedia(DESKTOP_REVIEW_QUERY).matches) return;
-
-  const getOffset = (index: number) => reviewCards[index].offsetLeft - reviewCards[0].offsetLeft;
-  gsap.set(reviewTrack, { x: 0 });
-  gsap.set(reviewCards, { transformOrigin: "50% 50%" });
-  reviewCards.forEach((card, index) => {
-    gsap.set(card, {
-      opacity: index === 0 ? 1 : 0.22,
-      scale: index === 0 ? 1 : 0.9,
-      y: index === 0 ? 0 : 18,
-      zIndex: reviewCards.length - index,
-    });
-  });
-
-  const reviewTimeline = gsap.timeline({
-    scrollTrigger: {
-      trigger: reviewSection,
-      start: "top top",
-      end: `+=${reviewCards.length * 92}%`,
-      scrub: true,
-      pin: true,
-      anticipatePin: 1,
-      invalidateOnRefresh: true,
-    },
-  });
-
-  for (let nextIndex = 1; nextIndex < reviewCards.length; nextIndex += 1) {
-    const start = (nextIndex - 1) * 1.05;
-    reviewTimeline.to(
-      reviewTrack,
-      {
-        x: () => -getOffset(nextIndex),
-        duration: 0.95,
-        ease: "power1.inOut",
-      },
-      start,
-    );
-    reviewCards.forEach((card, cardIndex) => {
-      reviewTimeline.to(
-        card,
-        {
-          opacity: cardIndex === nextIndex ? 1 : 0.22,
-          scale: cardIndex === nextIndex ? 1 : 0.9,
-          y: cardIndex === nextIndex ? 0 : 18,
-          duration: 0.95,
-          ease: "power1.inOut",
-        },
-        start,
-      );
-    });
-  }
-
-  reviewTimeline.to({}, { duration: 0.55 });
-}
-
 function Landing() {
   const [formStatus, setFormStatus] = useState<"idle" | "sent">("idle");
-  const [audience, setAudience] = useState<keyof typeof audiences>("Freshers");
   const [mobileOpen, setMobileOpen] = useState(false);
   const heroRef = useRef<HTMLElement | null>(null);
   const shutterRef = useRef<HTMLElement | null>(null);
-  const reviewsRef = useRef<HTMLElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
@@ -410,7 +465,6 @@ function Landing() {
       setupHeroAnimations(heroRef.current);
       setupSectionReveals();
       setupProgramShutter(shutterRef.current);
-      setupReviewCarousel(reviewsRef.current);
     });
 
     return () => {
@@ -448,8 +502,6 @@ function Landing() {
     event.currentTarget.reset();
     window.setTimeout(() => setFormStatus("idle"), 4000);
   };
-
-  const activeAudience = audiences[audience];
 
   return (
     <main className="min-h-screen overflow-hidden bg-background text-foreground">
@@ -637,51 +689,22 @@ function Landing() {
 
       <section id="programs" className="surface-light section-pad bg-background">
         <div className="mx-auto max-w-7xl px-5">
-          <div
-            className="grid gap-px overflow-hidden rounded-md border border-border bg-border md:grid-cols-2 lg:grid-cols-4"
-            data-reveal
-          >
-            {courses.map((course) => (
-              <article
-                key={course.name}
-                className="group min-h-[250px] bg-card p-5 transition hover:bg-card-hover"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="grid h-11 w-11 place-items-center rounded-md bg-primary/12 text-primary">
-                    <course.icon className="h-5 w-5" />
-                  </div>
-                  {course.tag && (
-                    <span className="rounded-md border border-primary/28 px-2 py-1 text-[10px] font-extrabold uppercase tracking-wide text-primary">
-                      {course.tag}
-                    </span>
-                  )}
-                </div>
-                <h3 className="mt-5 font-display text-xl font-extrabold leading-tight text-foreground">
-                  {course.name}
-                </h3>
-                <p className="mt-3 min-h-[72px] text-sm leading-6 text-muted-foreground">
-                  {course.desc}
-                </p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {course.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="rounded-md bg-foreground/[0.055] px-2 py-1 text-xs font-bold text-foreground/72"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-                <a
-                  href="#contact"
-                  className="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-primary"
-                >
-                  Enquire now{" "}
-                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-                </a>
-              </article>
-            ))}
+          <div className="mb-8 grid gap-5 lg:grid-cols-[0.82fr_0.72fr] lg:items-end" data-reveal>
+            <div>
+              <p className="eyebrow">Programs</p>
+              <h2 className="mt-4 max-w-3xl font-display text-4xl font-extrabold leading-tight md:text-6xl">
+                Eight tracks orbit one employable skill system.
+              </h2>
+            </div>
+            <p className="max-w-2xl text-lg leading-8 text-muted-foreground">
+              Pick a node to see the tools, role focus, and demand signal for each career track.
+            </p>
           </div>
+
+          <div data-reveal>
+            <RadialOrbitalTimeline timelineData={programOrbit} metricLabel="Demand" />
+          </div>
+
           <div className="skill-ribbon" aria-hidden="true">
             <div className="skill-ribbon-track">
               {[...kineticSkills, ...kineticSkills].map((skill, index) => (
@@ -719,6 +742,34 @@ function Landing() {
               </article>
             ))}
           </div>
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-3" data-reveal>
+            {learnerRoutes.map((route) => (
+              <article
+                key={route.label}
+                className="rounded-md border border-border bg-background p-5 shadow-elegant"
+              >
+                <p className="text-xs font-extrabold uppercase tracking-wide text-primary">
+                  {route.label}
+                </p>
+                <h3 className="mt-3 font-display text-2xl font-extrabold leading-tight">
+                  {route.title}
+                </h3>
+                <p className="mt-4 text-sm leading-6 text-muted-foreground">{route.body}</p>
+                <ul className="mt-5 grid gap-2">
+                  {route.bullets.map((bullet) => (
+                    <li
+                      key={bullet}
+                      className="flex items-center gap-2 text-sm font-bold text-foreground/82"
+                    >
+                      <CheckCircle2 className="h-4 w-4 text-primary" />
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -729,8 +780,8 @@ function Landing() {
               <p className="eyebrow">Placements</p>
               <h2>Outcomes that read like case studies.</h2>
               <p>
-                The goal is not just finishing a syllabus. It is building enough practical proof
-                to speak clearly in real interviews.
+                The goal is not just finishing a syllabus. It is building enough practical proof to
+                speak clearly in real interviews.
               </p>
             </div>
             <div className="placement-support">
@@ -786,89 +837,28 @@ function Landing() {
         </div>
       </section>
 
-      <section className="surface-light section-pad bg-muted">
-        <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-          <div data-reveal>
-            <p className="eyebrow">Who we train</p>
-            <h2 className="mt-4 max-w-xl font-display text-4xl font-extrabold leading-tight md:text-5xl">
-              Different learners need different routes into tech.
-            </h2>
-          </div>
-
-          <div className="rounded-md border border-border bg-background p-3" data-reveal>
-            <div className="grid gap-2 sm:grid-cols-3">
-              {(Object.keys(audiences) as Array<keyof typeof audiences>).map((key) => (
-                <button
-                  key={key}
-                  type="button"
-                  onClick={() => setAudience(key)}
-                  className={`rounded-md px-4 py-3 text-sm font-extrabold transition ${
-                    audience === key
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-foreground/[0.055] text-foreground/70 hover:text-foreground"
-                  }`}
-                >
-                  {key}
-                </button>
-              ))}
+      <section id="stories" className="surface-light review-proof bg-background">
+        <div className="review-proof-shell">
+          <div className="review-proof-header" data-reveal>
+            <div>
+              <p className="eyebrow">Stories</p>
+              <h2>Confidence that shows up in interviews.</h2>
             </div>
-
-            <div className="grid gap-8 p-4 pt-8 md:grid-cols-[0.8fr_1fr] md:p-7">
-              <div>
-                <h3 className="font-display text-3xl font-extrabold">{activeAudience.title}</h3>
-                <p className="mt-5 text-base leading-7 text-muted-foreground">
-                  {activeAudience.body}
-                </p>
-              </div>
-              <ul className="grid gap-3">
-                {activeAudience.bullets.map((bullet) => (
-                  <li
-                    key={bullet}
-                    className="flex items-center gap-3 rounded-md border border-border bg-card p-4 text-sm font-bold"
-                  >
-                    <CheckCircle2 className="h-5 w-5 text-primary" />
-                    {bullet}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="stories" ref={reviewsRef} className="surface-light review-journey bg-background">
-        <div className="review-shell">
-          <div className="review-copy" data-reveal>
-            <p className="eyebrow">Stories</p>
-            <h2>Confidence is trained before the interview.</h2>
             <p>
-              Students remember the moment they stop sounding like beginners and start speaking like
-              project contributors.
+              Students remember the shift: clearer tool language, sharper project explanations, and
+              the confidence to handle real interview rooms.
             </p>
           </div>
 
-          <div className="review-stage" aria-label="Student success stories">
-            <div data-review-track className="review-track">
-              {testimonials.map((item, index) => (
-                <article key={item.name} data-review-card className="review-card">
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="font-display text-5xl font-extrabold text-foreground/10">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <div className="flex gap-1">
-                      {[0, 1, 2, 3, 4].map((star) => (
-                        <Star key={star} className="h-5 w-5 fill-primary text-primary" />
-                      ))}
-                    </div>
-                  </div>
-                  <p className="review-quote">"{item.quote}"</p>
-                  <div className="mt-auto border-t border-border pt-6">
-                    <p className="text-xl font-extrabold">{item.name}</p>
-                    <p className="mt-1 text-sm font-semibold text-muted-foreground">{item.role}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
+          <div className="mt-8" data-reveal>
+            <ScrollReelTestimonials
+              testimonials={testimonials.map((item) => ({
+                quote: item.quote,
+                author: `${item.name} / ${item.role}`,
+                image: item.image,
+                alt: item.alt,
+              }))}
+            />
           </div>
         </div>
       </section>
@@ -1001,50 +991,9 @@ function Landing() {
         </div>
       </section>
 
-      <div className="surface-light footer-handoff" aria-hidden="true" />
+      <div className="footer-handoff" aria-hidden="true" />
 
-      <footer className="border-t border-border bg-black py-8 text-white">
-        <div className="mx-auto grid max-w-7xl gap-8 px-5 md:grid-cols-[1.4fr_0.6fr_0.6fr]">
-          <div>
-            <div className="flex items-center gap-3">
-              <img
-                src={brandLogo}
-                alt="Udvitha Technologies"
-                className="h-11 w-11 rounded-md object-cover"
-              />
-              <span className="font-display text-lg font-extrabold">Udvitha Technologies</span>
-            </div>
-            <p className="mt-4 max-w-md text-sm leading-6 text-white/62">
-              Education Meets Employment through practical IT training, placement support, and
-              industry-ready projects.
-            </p>
-          </div>
-          <div>
-            <h3 className="text-xs font-extrabold uppercase tracking-wide text-white/44">
-              Programs
-            </h3>
-            <ul className="mt-4 grid gap-2 text-sm text-white/72">
-              <li>IAM and Cyber Security</li>
-              <li>Cloud and DevOps</li>
-              <li>Full Stack and AI</li>
-              <li>Data and Enterprise Platforms</li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-xs font-extrabold uppercase tracking-wide text-white/44">
-              Reach us
-            </h3>
-            <ul className="mt-4 grid gap-2 text-sm text-white/72">
-              <li>Hyderabad, India</li>
-              <li>+91 91000 52143</li>
-              <li>info@udvitechnologies.com</li>
-            </ul>
-          </div>
-        </div>
-        <div className="mx-auto mt-6 max-w-7xl px-5 text-xs text-white/38">
-          Copyright {new Date().getFullYear()} Udvitha Technologies. All rights reserved.
-        </div>
-      </footer>
+      <FooterTapedDesign logoSrc={brandLogo} />
 
       <motion.a
         href="https://wa.me/919100052143"
